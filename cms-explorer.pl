@@ -477,8 +477,8 @@ sub get_file {
 #############################################################
 sub usage {
     print "$_[0]\n";
-    print "$0 -url url -type type [options]\n\n";
-    print "Options:\n";
+    print "$0 -url url -type type [options]\n";
+    print "\nOptions:\n";
     print "\t-bsproxy+ 	Proxy to route findings through (fmt: host:port)\n";
     print "\t-explore	Look for files in the theme/plugin dir\n";
     print "\t-help           This screen\n";
