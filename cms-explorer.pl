@@ -24,25 +24,34 @@
 # Code Repo:            http://code.google.com/p/cms-explorer/
 # Dependencies:         LibWhisker
 #                       Getopt::Long
+# 			OSVDB API key (optional): http://osvdb.org/api/about
 ########################################################################
 
 use strict;
 use LW2;
 use Getopt::Long;
 
+### ENTER OSVDB API KEY HERE ###
+my $osvdb_api_key = "";
+
 use vars qw/%OPTIONS %request %request_bootstrap @plugins @themes %URLS %EXPQ/;
-$URLS{'wp_svn_plugin'}           = "http://svn.wp-plugins.org/";
-$URLS{'wp_svn_theme'}            = "http://themes.svn.wordpress.org/";
-$URLS{'drupal_cvs_modules'}      = "http://drupalcode.org/viewvc/drupal/contributions/modules/";
-$URLS{'drupal_cvs_modules2'}     = "http://drupalcode.org/viewvc/drupal/drupal/modules/";
-$URLS{'drupal_cvs_themes'}       = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
-$URLS{'drupal_cvs_themes2'}      = "http://drupalcode.org/viewvc/drupal/drupal/themes/";
-$URLS{'mediawiki_svn_extension'} = "http://svn.wikimedia.org/svnroot/mediawiki/trunk/extensions/";
+$URLS{'wp_svn_plugin'}       = "http://svn.wp-plugins.org/";
+$URLS{'wp_svn_theme'}        = "http://themes.svn.wordpress.org/";
+$URLS{'drupal_cvs_modules'}  = "http://drupalcode.org/viewvc/drupal/contributions/modules/";
+$URLS{'drupal_cvs_modules2'} = "http://drupalcode.org/viewvc/drupal/drupal/modules/";
+$URLS{'drupal_cvs_themes'}   = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
+$URLS{'drupal_cvs_themes2'}  = "http://drupalcode.org/viewvc/drupal/drupal/themes/";
 LW2::http_init_request(\%request);
 parse_options();
 
 #############################################################
-print "\n*******************************************************\n";
+print "\n";
+if ($osvdb_api_key eq '') {
+    print "*******************************************************\n";
+    print "WARNING: No osvdb.org API key defined, searches will be disabled.\n";
+    }
+
+print "*******************************************************\n";
 print "Beginning run against $OPTIONS{'url'}...\n";
 
 my (@theme_finds, @plugin_finds) = ();
@@ -53,7 +62,7 @@ if ($OPTIONS{'checkthemes'}) {
     my @it;
     brute($OPTIONS{'uri'}, \@themes, \@it, "theme");
     foreach my $find (@it) {
-        print "Theme Installed:\t$find\n";
+        print "Theme Installed:\t\t$find\n";
         push(@theme_finds, $find);
         }
     }
@@ -64,7 +73,7 @@ if ($OPTIONS{'checkplugins'}) {
     my @ip;
     brute($OPTIONS{'uri'}, \@plugins, \@ip, "plugin");
     foreach my $find (@ip) {
-        print "Plugin Installed:\t$find\n";
+        print "Plugin Installed:\t\t$find\n";
         push(@plugin_finds, $find);
         }
     }
@@ -135,51 +144,97 @@ if ($OPTIONS{'explore'}) {
             print "Explore:\t$result{'whisker'}->{'code'}\t$file\n";
             }
         }
-
-    #}
-    #else {
-    #    print "The following files may be present\n";
-    #    foreach my $file (sort keys %EXPQ) {
-    #        $file =~ s/^\/wp-content\///;
-    #        if (($file =~ /^\//) && ($OPTIONS{'url'} =~ /\/$/)) { $file =~ s/^\///; }
-    #        print "\t" . $OPTIONS{'url'} . $file . "\n";
-    #        }
-    #    }
     }
 
 # Summary
 print "\n*******************************************************\n";
 print "Summary:\n";
 foreach my $find (@theme_finds) {
-    print "Theme Installed:\t$find\n";
-    print "\tURL:\t\t" . $OPTIONS{'url'} . $find . "\n";
-    if ($OPTIONS{'type'} eq 'wp') {
-        print "\tSVN:\t\thttp://themes.svn.wordpress.org/" . $find . "\n";
+    print "Theme Installed:\t\t$find\n";
+    print "\tURL\t\t\t" . $OPTIONS{'url'} . $find . "\n";
+    if ($OPTIONS{'type'} eq 'joomla') {
+        print osvdb_search($find, $OPTIONS{'type'});
+        }
+    elsif ($OPTIONS{'type'} eq 'wp') {
+        print "\tSVN\t\t\thttp://themes.svn.wordpress.org/" . $find . "\n";
+        print osvdb_search($find, $OPTIONS{'type'});
         }
     elsif ($OPTIONS{'type'} eq 'drupal') {
-        print "\tSVN:\t\thttp://drupalcode.org/viewvc/drupal/contributions/themes/" . $find . "\n";
+        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/themes/" . $find . "\n";
+        print osvdb_search($find, $OPTIONS{'type'});
         }
     }
 
 foreach my $find (@plugin_finds) {
-    print "Plugin Installed:\t$find\n";
-    print "\tURL:\t\t" . $OPTIONS{'url'} . $find . "\n";
+    print "Plugin Installed:\t\t$find\n";
+    print "\tURL\t\t\t" . $OPTIONS{'url'} . $find . "\n";
     if (($OPTIONS{'type'} eq 'joomla') && ($find =~ /^components/)) {
         my $com = $find;
         $com =~ s/^components\///;
         $com =~ s/\/$//;
-        print "\tURL:\t\t" . $OPTIONS{'url'} . "index.php?option=" . $com . "\n";
+        print "\tURL\t\t\t" . $OPTIONS{'url'} . "index.php?option=" . $com . "\n";
+        print osvdb_search($com, $OPTIONS{'type'});
         }
     elsif ($OPTIONS{'type'} eq 'wp') {
-        print "\tSVN:\t\thttp://svn.wp-plugins.org/" . $find . "trunk/\n"
+        print "\tSVN\t\t\thttp://svn.wp-plugins.org/" . $find . "trunk/\n"
           unless $find eq 'hello.php';
+        print osvdb_search($find, $OPTIONS{'type'});
         }
     elsif ($OPTIONS{'type'} eq 'drupal') {
-        print "\tSVN:\t\thttp://drupalcode.org/viewvc/drupal/contributions/modules/" . $find . "\n";
+        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/modules/" . $find
+          . "\n";
+        print osvdb_search($find, $OPTIONS{'type'});
         }
     }
 
 exit;
+
+#############################################################
+sub osvdb_search {
+    if (!$OPTIONS{'osvdb'}) { return; }
+    if ($osvdb_api_key eq '') { return; }
+    my $string = $_[0] || return;
+    my $product = $_[1];
+    if ($product eq 'wp') { $product = "wordpress"; }
+    $string =~
+      s/^(?:wp-content\/)?(?:modules|themes|templates|components|(?:wp-content\/|plugins|themes))\///;
+    $string =~ s/\/$//;
+    my $url = "http://osvdb.org/search?format=csv&key=" . $osvdb_api_key;
+    $url .= "&search%5Btext_type%5D=alltext&search%5Bvuln_title%5D=" . $string . "%20" . $product;
+    my ($code, $data) = LW2::get_page($url);
+    my %entries;
+
+    if ($OPTIONS{'verbosity'} > '1') {
+        print "OSVDB search for \"$string $product\" result code $code size "
+          . length($data) . "\n";
+        }
+    if (($code eq 200) && (length($data) > 1)) {
+        foreach my $line (split(/(?:\n|\r)/, $data)) {
+            if ($line !~ /^\d+,/) { next; }    # not an entry
+            my @data = parse_csv($line);
+            $entries{ $data[0] } = $data[1];
+            }
+        my $output;
+        foreach my $id (sort keys %entries) {
+            $output .= "\thttp://osvdb.org/" . $id . "\t" . $entries{$id} . "\n";
+            }
+        return $output;
+        }
+    return;
+    }
+
+#############################################################
+sub parse_csv {
+    my $text = $_[0] || return;
+    my @new = ();
+    push(@new, $+) while $text =~ m{
+      "([^\"\\]*(?:\\.[^\"\\]*)*)",?
+       |  ([^,]+),?
+      | ,
+   }gx;
+    push(@new, undef) if substr($text, -1, 1) eq ',';
+    return @new;
+    }
 
 #############################################################
 sub brute {
@@ -306,18 +361,19 @@ sub update {
 
 #############################################################
 sub parse_options {
-    GetOptions("url=s"         => \$OPTIONS{'url'},
-               "pluginfile=s"  => \$OPTIONS{'pluginfile'},
-               "themefile=s"   => \$OPTIONS{'themefile'},
-               "type=s"        => \$OPTIONS{'type'},
-               "themes"        => \$OPTIONS{'checkthemes'},
-               "explore"       => \$OPTIONS{'explore'},
-               "help"          => \$OPTIONS{'help'},
-               "plugins"       => \$OPTIONS{'checkplugins'},
-               "proxy=s"   => \$OPTIONS{'proxy_host'},
-               "bsproxy=s" => \$OPTIONS{'bsproxy_host'},
-               "update"        => \$OPTIONS{'update'},
-               "verbosity=i"   => \$OPTIONS{'verbosity'}
+    GetOptions("url=s"        => \$OPTIONS{'url'},
+               "pluginfile=s" => \$OPTIONS{'pluginfile'},
+               "themefile=s"  => \$OPTIONS{'themefile'},
+               "type=s"       => \$OPTIONS{'type'},
+               "themes"       => \$OPTIONS{'checkthemes'},
+               "explore"      => \$OPTIONS{'explore'},
+               "help"         => \$OPTIONS{'help'},
+               "osvdb"        => \$OPTIONS{'osvdb'},
+               "plugins"      => \$OPTIONS{'checkplugins'},
+               "proxy=s"      => \$OPTIONS{'proxy_host'},
+               "bsproxy=s"    => \$OPTIONS{'bsproxy_host'},
+               "update"       => \$OPTIONS{'update'},
+               "verbosity=i"  => \$OPTIONS{'verbosity'}
                ) || die usage("^^^^^^^^^^^^^^  ERROR ^^^^^^^^^^^^^^\n");
 
     if ($OPTIONS{'help'}) { usage(); }
@@ -482,6 +538,7 @@ sub usage {
     print "\t-bsproxy+ 	Proxy to route findings through (fmt: host:port)\n";
     print "\t-explore	Look for files in the theme/plugin dir\n";
     print "\t-help           This screen\n";
+    print "\t-osvdb	Do OSVDB check for finds\n";
     print "\t-plugins	Look for plugins (default: on)\n";
     print "\t-pluginfile+	Plugin file list\n";
     print "\t-proxy+ 	Proxy for requests (fmt: host:port)\n";

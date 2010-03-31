@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # Code Repo:		http://code.google.com/p/cms-explorer/
 # Dependencies: 	LibWhisker
 #			Getopt::Long
+#			OSVDB API Key (optional): http://osvdb.org/api/about
 #############################################################
 About
 This program attempts to brute-force guess the plugins and themes
@@ -51,6 +52,11 @@ so they can be further checked for security issues. This only works
 for Drupal and Wordpress as they provide central repositories for user 
 submitted modules.
 
+The -osvdb option will search osvdb.org for vulnerabilities in the
+products installed components. You must create an account on 
+osvdb.org and insert your API key inside cms-explorer.pl. An account
+gives you 100 queries per day, or make a donation for a higher limit.
+
 #############################################################
 Requirements
 This program requires:
@@ -71,6 +77,7 @@ Options
 	-bsproxy+ 	Proxy to route findings through (format: host:ip
 			or http://host:ip/, default port 80)
 	-explore	Look for files in the theme/plugin dir
+	-osvdb 		Search OSVDB.org for vulnerabilities
 	-plugins	Look for plugins (default: on)
 	-pluginfile+	Plugin file list
 	-proxy+ 	Proxy for requests (format: host:ip or 

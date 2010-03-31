@@ -156,6 +156,7 @@ wp-content/themes/anonymous-elegance/
 wp-content/themes/antique/
 wp-content/themes/antiques-theme/
 wp-content/themes/antis-lemon-lime/
+wp-content/themes/antisnews/
 wp-content/themes/anvil/
 wp-content/themes/anvil-theme/
 wp-content/themes/anvys/
@@ -628,6 +629,7 @@ wp-content/themes/cb-celebrity/
 wp-content/themes/cbone/
 wp-content/themes/cbonelight/
 wp-content/themes/cc-blue/
+wp-content/themes/ccblue/
 wp-content/themes/celestial-aura/
 wp-content/themes/cendol/
 wp-content/themes/ceremonial/
@@ -2020,6 +2022,7 @@ wp-content/themes/morning-coffee/
 wp-content/themes/mortaroo/
 wp-content/themes/mortgage/
 wp-content/themes/mortgages/
+wp-content/themes/mortgagesaver/
 wp-content/themes/moseter/
 wp-content/themes/motion/
 wp-content/themes/motorrad-style-1/
