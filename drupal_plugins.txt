@@ -5140,6 +5140,7 @@ modules/term_relation_types/
 modules/term_statistics/
 modules/term_tree/
 modules/termblocks/
+modules/termcase/
 modules/terminal/
 modules/terms_of_use/
 modules/testimonial/

@@ -54,7 +54,7 @@ submitted modules.
 
 The -osvdb option will search osvdb.org for vulnerabilities in the
 products installed components. You must create an account on 
-osvdb.org and insert your API key inside cms-explorer.pl. An account
+osvdb.org and put your API key in a file named 'osvdb.key'. An account
 gives you 100 queries per day, or make a donation for a higher limit.
 
 #############################################################
@@ -62,6 +62,7 @@ Requirements
 This program requires:
 - Getopt::Long perl module
 - LibWhisker (LW2) included, or from http://www.wiretrip.net/rfp/lw.asp
+- OSVDB API Key (optional): http://osvdb.org/api/about
 
 #############################################################
 Limitations

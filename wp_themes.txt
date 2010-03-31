@@ -1191,6 +1191,7 @@ wp-content/themes/fishbook/
 wp-content/themes/fishbook-buddypress-buddypack/
 wp-content/themes/fishes-and-ocean-water/
 wp-content/themes/fishlover/
+wp-content/themes/fishy/
 wp-content/themes/fixed-blix/
 wp-content/themes/flashcast/
 wp-content/themes/flashy/
@@ -2030,6 +2031,7 @@ wp-content/themes/mountain-biking-sports-pro-theme/
 wp-content/themes/mountain-climbing/
 wp-content/themes/mountain-dawn/
 wp-content/themes/mouse-it/
+wp-content/themes/mouseover-blue/
 wp-content/themes/movie-theme/
 wp-content/themes/mp3store/
 wp-content/themes/mp3style/
@@ -2452,6 +2454,7 @@ wp-content/themes/punk-plaid/
 wp-content/themes/punk-theme/
 wp-content/themes/pure/
 wp-content/themes/pure-cloud/
+wp-content/themes/purity/
 wp-content/themes/purity-of-soul/
 wp-content/themes/purple-dream/
 wp-content/themes/purple-ice/

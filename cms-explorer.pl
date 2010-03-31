@@ -31,9 +31,7 @@ use strict;
 use LW2;
 use Getopt::Long;
 
-### ENTER OSVDB API KEY HERE ###
-my $osvdb_api_key = "";
-
+# Set defaults
 use vars qw/%OPTIONS %request %request_bootstrap @plugins @themes %URLS %EXPQ/;
 $URLS{'wp_svn_plugin'}       = "http://svn.wp-plugins.org/";
 $URLS{'wp_svn_theme'}        = "http://themes.svn.wordpress.org/";
@@ -42,20 +40,25 @@ $URLS{'drupal_cvs_modules2'} = "http://drupalcode.org/viewvc/drupal/drupal/modul
 $URLS{'drupal_cvs_themes'}   = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
 $URLS{'drupal_cvs_themes2'}  = "http://drupalcode.org/viewvc/drupal/drupal/themes/";
 LW2::http_init_request(\%request);
+
+# Load OSVDB API key
+my $osvdb_api_key = osvdb_load_apikey();
+if ($osvdb_api_key eq '') {
+    print "*****************************************************************\n";
+    print "WARNING: No osvdb.org API key defined, searches will be disabled.\n";
+    print "*****************************************************************\n";
+    }
+
+# Check options & setup
 parse_options();
 
 #############################################################
-print "\n";
-if ($osvdb_api_key eq '') {
-    print "*******************************************************\n";
-    print "WARNING: No osvdb.org API key defined, searches will be disabled.\n";
-    }
-
-print "*******************************************************\n";
+print "\n*******************************************************\n";
 print "Beginning run against $OPTIONS{'url'}...\n";
 
 my (@theme_finds, @plugin_finds) = ();
 
+# Load & brute force themes
 if ($OPTIONS{'checkthemes'}) {
     print "Testing themes from $OPTIONS{'themefile'}...\n";
     my @themes = get_file($OPTIONS{'themefile'});
@@ -67,6 +70,7 @@ if ($OPTIONS{'checkthemes'}) {
         }
     }
 
+# Load & brute force plugins
 if ($OPTIONS{'checkplugins'}) {
     print "Testing plugins...\n";
     my @plugins = get_file($OPTIONS{'pluginfile'});
@@ -146,7 +150,7 @@ if ($OPTIONS{'explore'}) {
         }
     }
 
-# Summary
+# Print summary & OSVDB search
 print "\n*******************************************************\n";
 print "Summary:\n";
 foreach my $find (@theme_finds) {
@@ -188,6 +192,18 @@ foreach my $find (@plugin_finds) {
     }
 
 exit;
+
+#############################################################
+sub osvdb_load_apikey {
+    if ((-e "osvdb.key") && (-r "osvdb.key")) {
+        open(IN, "<osvdb.key") || die print "ERROR: Unable to open osvdb.key: $!\n";
+        my @F = <IN>;
+        close(IN);
+        chomp($F[0]);
+        return $F[0];
+        }
+    return;
+    }
 
 #############################################################
 sub osvdb_search {
@@ -439,7 +455,7 @@ sub parse_options {
     LW2::uri_split($OPTIONS{'url'}, \%request);
     $request{'User-Agent'}           = 'Mozilla/5.0 (en-US; rv:1.9.1.7) Firefox/3.5.7';
     $request{'whisker'}->{'version'} = '1.1';
-    $request{'whisker'}->{'method'}  = 'GET';
+    $request{'whisker'}->{'method'}  = 'HEAD';
     if ($OPTIONS{'proxy_host'} ne '') {
         $request{'whisker'}->{'proxy_host'} = $OPTIONS{'proxy_host'};
         $request{'whisker'}->{'proxy_port'} = $OPTIONS{'proxy_port'};
@@ -538,7 +554,7 @@ sub usage {
     print "\t-bsproxy+ 	Proxy to route findings through (fmt: host:port)\n";
     print "\t-explore	Look for files in the theme/plugin dir\n";
     print "\t-help           This screen\n";
-    print "\t-osvdb	Do OSVDB check for finds\n";
+    print "\t-osvdb		Do OSVDB check for finds\n";
     print "\t-plugins	Look for plugins (default: on)\n";
     print "\t-pluginfile+	Plugin file list\n";
     print "\t-proxy+ 	Proxy for requests (fmt: host:port)\n";
