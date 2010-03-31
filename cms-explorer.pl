@@ -164,7 +164,7 @@ foreach my $find (@theme_finds) {
         print osvdb_search($find, $OPTIONS{'type'});
         }
     elsif ($OPTIONS{'type'} eq 'drupal') {
-        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/themes/" . $find . "\n";
+        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/" . $find . "\n";
         print osvdb_search($find, $OPTIONS{'type'});
         }
     }
@@ -185,7 +185,7 @@ foreach my $find (@plugin_finds) {
         print osvdb_search($find, $OPTIONS{'type'});
         }
     elsif ($OPTIONS{'type'} eq 'drupal') {
-        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/modules/" . $find
+        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/" . $find
           . "\n";
         print osvdb_search($find, $OPTIONS{'type'});
         }
