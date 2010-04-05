@@ -122,9 +122,12 @@ if ($OPTIONS{'explore'}) {
 
     my %result;
     my $ctr = 0;
+print "expq: " . keys(%EXPQ) . "\n";
     foreach my $file (keys %EXPQ) {
         $ctr++;
+print "file:$file\n";
         if ($OPTIONS{'bsproxy_host'} ne '') {
+print "host:$OPTIONS{'bsproxy_host'}\n";
             $request_bootstrap{'whisker'}->{'uri'} = $file;
             LW2::http_fixup_request(\%request_bootstrap);
             LW2::http_do_request(\%request_bootstrap, \%result);
@@ -282,12 +285,26 @@ sub brute {
             # and route through bootstrap proxy, if desired
             if ($OPTIONS{'bsproxy_host'} ne '') {
                 $request_bootstrap{'whisker'}->{'uri'} = $base . $f;
+#print "added w uri: $request_bootstrap{'whisker'}->{'uri'}\n";
                 LW2::http_fixup_request(\%request_bootstrap);
                 LW2::http_do_request(\%request_bootstrap, \%result);
+#dump_var("request",\%request_bootstrap);
+#dump_var("result",\%result);
                 }
             }
         } @$tests;
     }
+
+sub dump_var {
+    my $msg     = $_[0];
+    my %hash_in = %{ $_[1] };
+
+    my $display = LW2::dump('', \%hash_in);
+    $display =~ s/^\$/'$msg'/;
+    print "$display\n";
+    return;
+}
+
 
 #############################################################
 sub update {
@@ -567,6 +584,7 @@ sub usage {
     print "\n";
     print "\t+ Requires value\n";
     print "\t* Required option\n";
+    print "\n\thttp://security.sunera.com/\n";
     exit;
     }
 

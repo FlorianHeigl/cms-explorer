@@ -462,6 +462,7 @@ modules/autotaxonomy/
 modules/autotimezone/
 modules/autotrack/
 modules/autovar/
+modules/av_element/
 modules/availability/
 modules/availability_calendars/
 modules/avatar_blocks/
@@ -581,6 +582,7 @@ modules/blockscheme/
 modules/blockterm/
 modules/blocktheme/
 modules/blocktools/
+modules/blockvisibility/
 modules/blog_addons/
 modules/blog_list/
 modules/blog_reactions/
@@ -652,6 +654,7 @@ modules/bowob/
 modules/box/
 modules/boxes/
 modules/bpv/
+modules/bracket/
 modules/brainfsck/
 modules/brainstorm_update/
 modules/brazilian_ids/
@@ -706,7 +709,9 @@ modules/cache_disable/
 modules/cacheclear/
 modules/cacheexclude/
 modules/cacherouter/
+modules/cacherouter_stats/
 modules/cachestatic/
+modules/cad/
 modules/cafepress/
 modules/calais/
 modules/calais_marmoset/
@@ -969,6 +974,7 @@ modules/comment_bury_promote/
 modules/comment_cck/
 modules/comment_controls/
 modules/comment_count_image/
+modules/comment_country/
 modules/comment_delete/
 modules/comment_dialogue/
 modules/comment_display/
@@ -1086,6 +1092,7 @@ modules/content_slider/
 modules/content_taxonomy/
 modules/content_theme/
 modules/content_type_cleanup/
+modules/content_type_exporter/
 modules/content_type_overview/
 modules/content_type_selector/
 modules/content_unpublish/
@@ -1294,6 +1301,7 @@ modules/dblclick/
 modules/dblog_csv/
 modules/dbscripts/
 modules/dbtng/
+modules/dbtuner/
 modules/dbview/
 modules/dbx/
 modules/dcl-importer/
@@ -1307,6 +1315,7 @@ modules/debug/
 modules/decisions/
 modules/decounter/
 modules/default_filter/
+modules/default_overrides/
 modules/default_submit/
 modules/delegate_menu_admin/
 modules/delete_all/
@@ -1674,6 +1683,7 @@ modules/erm/
 modules/ernest_marples/
 modules/erp/
 modules/err/
+modules/errornot/
 modules/eticket/
 modules/etracker/
 modules/etsy/
@@ -2791,6 +2801,7 @@ modules/l10n_update/
 modules/lambda/
 modules/landing_page/
 modules/landing_pages/
+modules/lang_dropdown/
 modules/langcheck/
 modules/language_extras/
 modules/language_sections/
@@ -2900,6 +2911,7 @@ modules/localemail/
 modules/localizer/
 modules/localsolr/
 modules/location/
+modules/location_display/
 modules/lockdown/
 modules/log_archive/
 modules/log_to_file/
@@ -3115,6 +3127,7 @@ modules/menutranslation/
 modules/menutree/
 modules/menuwriter/
 modules/merci/
+modules/message/
 modules/messagebox/
 modules/messagefx/
 modules/messages_alter/
@@ -3349,6 +3362,7 @@ modules/niftycube/
 modules/nikeplus/
 modules/nina/
 modules/nitf_views/
+modules/nitobe_masthead_image/
 modules/nivo_slider/
 modules/nmoderation/
 modules/no_anon/
@@ -3412,6 +3426,7 @@ modules/node_style/
 modules/node_template/
 modules/node_theme/
 modules/node_time_tracker/
+modules/node_to_word/
 modules/node_translation/
 modules/node_type_filter/
 modules/node_type_heirachy/
@@ -3811,6 +3826,7 @@ modules/patch_content_multigroup/
 modules/patchdoq/
 modules/path/
 modules/path_access/
+modules/path_alias_xt/
 modules/path_aliases_filter/
 modules/path_blacklist/
 modules/path_en/
@@ -4532,6 +4548,7 @@ modules/services_open_api/
 modules/sesame/
 modules/sesame_access/
 modules/sesamevault/
+modules/session443/
 modules/session_api/
 modules/session_expire/
 modules/session_favorites/
@@ -4542,6 +4559,7 @@ modules/set4d/
 modules/sets/
 modules/setting/
 modules/settings/
+modules/settings_audit_log/
 modules/sevenup/
 modules/sexy_exposed/
 modules/sexybookmarks/
@@ -4935,6 +4953,7 @@ modules/swfobject_api/
 modules/swfobject_filter/
 modules/swftools/
 modules/swfupload/
+modules/swiftriver/
 modules/swish/
 modules/switchtheme/
 modules/swx/
@@ -5094,6 +5113,7 @@ modules/taxonomy_theme/
 modules/taxonomy_ticker/
 modules/taxonomy_timer/
 modules/taxonomy_title/
+modules/taxonomy_tree_select/
 modules/taxonomy_treemenu/
 modules/taxonomy_user/
 modules/taxonomy_vocab_relate/
@@ -5242,6 +5262,7 @@ modules/toggle_www/
 modules/togglenode/
 modules/token/
 modules/token_custom/
+modules/token_extra/
 modules/token_filter/
 modules/token_node/
 modules/token_profile/
@@ -5393,6 +5414,7 @@ modules/uc_chinabank/
 modules/uc_cim/
 modules/uc_civicrm_profile_pane/
 modules/uc_clickandbuy/
+modules/uc_cloudfront/
 modules/uc_conditional_payment/
 modules/uc_correios_quotes/
 modules/uc_coupon/
@@ -5429,6 +5451,7 @@ modules/uc_extra_fields_pane/
 modules/uc_fedex/
 modules/uc_fee/
 modules/uc_file_retro/
+modules/uc_file_s3/
 modules/uc_filestream/
 modules/uc_flo2cash/
 modules/uc_followup/
@@ -5460,6 +5483,7 @@ modules/uc_make_an_offer/
 modules/uc_manufacturer/
 modules/uc_marketing/
 modules/uc_member_pricing/
+modules/uc_members_only/
 modules/uc_migs/
 modules/uc_minpercentrate/
 modules/uc_moneris/
@@ -5668,6 +5692,7 @@ modules/user_activity/
 modules/user_aggregator/
 modules/user_autorole/
 modules/user_availability/
+modules/user_backreference/
 modules/user_badges/
 modules/user_board/
 modules/user_cancellation/
@@ -5768,6 +5793,7 @@ modules/userprofile/
 modules/userprotect/
 modules/userqueue/
 modules/userquota/
+modules/userref_access/
 modules/userreference_access/
 modules/userregisterredirect/
 modules/userregisterroleurl/
@@ -5934,6 +5960,7 @@ modules/views_taxargs/
 modules/views_taxonomy_selective_filter/
 modules/views_ticker/
 modules/views_translate/
+modules/views_tree/
 modules/views_trim/
 modules/views_turntable/
 modules/views_two_column_table/
@@ -6105,6 +6132,7 @@ modules/wikitools/
 modules/windowslivemessenger/
 modules/winliveid/
 modules/winlivesearch/
+modules/winners/
 modules/wireframe/
 modules/wishlist/
 modules/wiz/
@@ -6215,6 +6243,7 @@ modules/yahoomeme/
 modules/yahoopipes/
 modules/yamli/
 modules/yamm/
+modules/yar/
 modules/yatt/
 modules/yboss/
 modules/yelp/
