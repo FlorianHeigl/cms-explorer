@@ -1,54 +1,3 @@
-modules/actions/
-modules/aggregator/
-modules/archive/
-modules/block/
-modules/blog/
-modules/blogapi/
-modules/book/
-modules/color/
-modules/comment/
-modules/contact/
-modules/contextual/
-modules/dashboard/
-modules/dblog/
-modules/drupal/
-modules/field/
-modules/field_ui/
-modules/file/
-modules/filter/
-modules/forum/
-modules/help/
-modules/image/
-modules/legacy/
-modules/locale/
-modules/menu/
-modules/node/
-modules/openid/
-modules/overlay/
-modules/page/
-modules/path/
-modules/php/
-modules/ping/
-modules/poll/
-modules/profile/
-modules/rdf/
-modules/search/
-modules/shortcut/
-modules/simpletest/
-modules/statistics/
-modules/story/
-modules/syslog/
-modules/system/
-modules/taxonomy/
-modules/throttle/
-modules/toolbar/
-modules/tracker/
-modules/translation/
-modules/trigger/
-modules/update/
-modules/upload/
-modules/user/
-modules/watchdog/
 modules/.gitdrush/
 modules/.settings/
 modules/AudioRecordingField/
@@ -236,6 +185,7 @@ modules/agaric_starter/
 modules/agenda/
 modules/agents/
 modules/aggregation/
+modules/aggregator/
 modules/aggregator2/
 modules/aggregator_node/
 modules/aggregator_promote/
@@ -253,8 +203,8 @@ modules/ahah_script_ensurer/
 modules/ahah_style_ensurer/
 modules/airborne/
 modules/airplane_reservation/
-modules/ajax/
 modules/ajax-validation/
+modules/ajax/
 modules/ajax_checklist/
 modules/ajax_comments/
 modules/ajax_install/
@@ -549,6 +499,7 @@ modules/bittorrent/
 modules/bizmappro/
 modules/blacklist/
 modules/blipfm/
+modules/block/
 modules/block_assign/
 modules/block_class/
 modules/block_cpr/
@@ -583,6 +534,7 @@ modules/blockterm/
 modules/blocktheme/
 modules/blocktools/
 modules/blockvisibility/
+modules/blog/
 modules/blog_addons/
 modules/blog_list/
 modules/blog_reactions/
@@ -611,6 +563,7 @@ modules/bluga/
 modules/body_revision/
 modules/bodybuilder/
 modules/bones/
+modules/book/
 modules/book_access/
 modules/book_bridge/
 modules/book_copy/
@@ -751,8 +704,8 @@ modules/category_tokens/
 modules/cave/
 modules/cc_widget/
 modules/ccfilter/
-modules/cck/
 modules/cck.pre-rename/
+modules/cck/
 modules/cck_address/
 modules/cck_address_extensions/
 modules/cck_author/
@@ -951,6 +904,7 @@ modules/collecta/
 modules/collection/
 modules/collimator/
 modules/colophon/
+modules/color/
 modules/color_scheme/
 modules/color_soc08/
 modules/colorbox/
@@ -964,6 +918,7 @@ modules/comfortid/
 modules/comic/
 modules/comicview/
 modules/command/
+modules/comment/
 modules/commentSwitch/
 modules/comment_acl/
 modules/comment_ajax/
@@ -1110,6 +1065,7 @@ modules/context_theme/
 modules/contexthelp/
 modules/contextlinks/
 modules/contextphp/
+modules/contextual/
 modules/contrib_toggle/
 modules/contribute/
 modules/contributions/
@@ -1299,6 +1255,7 @@ modules/dbfm/
 modules/dbfmgreybox/
 modules/dbfmsearch/
 modules/dblclick/
+modules/dblog/
 modules/dblog_csv/
 modules/dbscripts/
 modules/dbtng/
@@ -1468,12 +1425,12 @@ modules/droplist_filter/
 modules/drpager/
 modules/drubb/
 modules/drubnub/
-modules/drubuntu/
 modules/drubuntu-head/
+modules/drubuntu/
 modules/drucumber/
 modules/drumbleViewer/
-modules/drupal/
 modules/drupal.js/
+modules/drupal/
 modules/drupal6api/
 modules/drupal_ftp/
 modules/drupal_hub/
@@ -1495,8 +1452,8 @@ modules/drupalwebsites/
 modules/drupher/
 modules/druplet/
 modules/drupman/
-modules/drush/
 modules/drush.git/
+modules/drush/
 modules/drush_extras/
 modules/drush_git/
 modules/drush_make/
@@ -1862,6 +1819,7 @@ modules/ffmpeg/
 modules/ffmpeg_converter/
 modules/ffmpeg_wrapper/
 modules/ffpc/
+modules/field/
 modules/field_convert/
 modules/field_copy/
 modules/field_indexer/
@@ -1869,6 +1827,7 @@ modules/field_permissions/
 modules/field_permissions_plus/
 modules/field_spotter/
 modules/field_taxonomy/
+modules/field_ui/
 modules/fieldactions/
 modules/fieldelement/
 modules/fieldfinder/
@@ -1894,11 +1853,11 @@ modules/file_newest_revision/
 modules/file_newest_revisions/
 modules/file_translit/
 modules/fileaccesscontrol/
-modules/fileapi/
 modules/fileapi-4-7/
+modules/fileapi/
 modules/filebanlist/
-modules/filebrowser/
 modules/filebrowser-DRUPAL-6--2/
+modules/filebrowser/
 modules/filebrowser_extensions/
 modules/filecache/
 modules/filefield/
@@ -1927,8 +1886,8 @@ modules/fileserver/
 modules/fileshare/
 modules/filestore/
 modules/filestore2/
-modules/filesystem/
 modules/filesystem-4-7/
+modules/filesystem/
 modules/fileutils/
 modules/fileview/
 modules/fill_roles/
@@ -2075,6 +2034,7 @@ modules/formtips/
 modules/formtweaker/
 modules/formupdater/
 modules/fortune/
+modules/forum/
 modules/forum2/
 modules/forum_access/
 modules/forum_admin_links/
@@ -2319,6 +2279,7 @@ modules/heartbeat/
 modules/helios/
 modules/hellomobile/
 modules/hellotxt/
+modules/help/
 modules/help_soc/
 modules/helpdesk/
 modules/helpedit/
@@ -2643,8 +2604,8 @@ modules/irchwebchat/
 modules/is_useful/
 modules/isbn/
 modules/isp_login/
-modules/ispconfig/
 modules/ispconfig-HEAD/
+modules/ispconfig/
 modules/iss/
 modules/issuu/
 modules/italianstemmer/
@@ -2765,8 +2726,8 @@ modules/junk/
 modules/jwysiwyg/
 modules/kaltura/
 modules/kaltura_drupal_6/
-modules/karma/
 modules/karma-lab/
+modules/karma/
 modules/kasahorow/
 modules/keep_session/
 modules/key_redirect/
@@ -2837,6 +2798,7 @@ modules/ldapdirectory/
 modules/leaguesite/
 modules/leech/
 modules/leftandright/
+modules/legacy/
 modules/legacypath/
 modules/legal/
 modules/legislation/
@@ -3088,6 +3050,7 @@ modules/memcache/
 modules/memetracker/
 modules/memo/
 modules/mentions/
+modules/menu/
 modules/menu_access/
 modules/menu_add_content/
 modules/menu_admin_per_menu/
@@ -3294,8 +3257,8 @@ modules/multisite_manager/
 modules/multisite_search/
 modules/multisite_user_profile/
 modules/multistep/
-modules/multivariate/
 modules/multivariate%5C/
+modules/multivariate/
 modules/multuiple_email/
 modules/munin/
 modules/mutual_credit/
@@ -3370,6 +3333,7 @@ modules/nmoderation/
 modules/no_anon/
 modules/no_www/
 modules/nocase/
+modules/node/
 modules/node2node/
 modules/node_access/
 modules/node_access_control/
@@ -3701,9 +3665,9 @@ modules/openadstream/
 modules/openband/
 modules/opencalais/
 modules/opendover/
-modules/openid/
 modules/openid-launchpad/
 modules/openid-teams/
+modules/openid/
 modules/openid_autoreg/
 modules/openid_ax/
 modules/openid_client_ax/
@@ -3760,6 +3724,7 @@ modules/outline/
 modules/outline_designer/
 modules/outline_dmenu/
 modules/over_text/
+modules/overlay/
 modules/overlay_gallery/
 modules/override_node_options/
 modules/ownterm/
@@ -3768,6 +3733,7 @@ modules/package_builder/
 modules/packager/
 modules/pacs/
 modules/padfile/
+modules/page/
 modules/page_lang/
 modules/page_renderer/
 modules/page_theme/
@@ -3921,6 +3887,7 @@ modules/photoblog/
 modules/photoframe/
 modules/photos/
 modules/photos_access/
+modules/php/
 modules/php2lua/
 modules/php4/
 modules/php_errors/
@@ -3951,6 +3918,7 @@ modules/picture/
 modules/pictures/
 modules/pifr_demo/
 modules/pin/
+modules/ping/
 modules/ping_server/
 modules/pingback/
 modules/pingdom/
@@ -3960,8 +3928,8 @@ modules/pingthis/
 modules/pirate/
 modules/pirets/
 modules/pirobox_tipster/
-modules/pivots/
 modules/pivots-extra/
+modules/pivots/
 modules/pivots4do/
 modules/piwik/
 modules/piwikanalytics/
@@ -3991,6 +3959,7 @@ modules/po/
 modules/podtrac/
 modules/point_board/
 modules/poke/
+modules/poll/
 modules/poll_inline/
 modules/pollfield/
 modules/pong/
@@ -4075,8 +4044,8 @@ modules/privatemsgmm/
 modules/privatespace/
 modules/procon/
 modules/prodigem/
-modules/profile/
 modules/profile-ng/
+modules/profile/
 modules/profile2/
 modules/profile_access/
 modules/profile_blog_info/
@@ -4476,6 +4445,7 @@ modules/scrollable/
 modules/scrollable_content/
 modules/scrolltetxt/
 modules/scrolltext/
+modules/search/
 modules/search404/
 modules/search_all/
 modules/search_and_replace/
@@ -4879,6 +4849,7 @@ modules/storefinder/
 modules/storm/
 modules/storm_dashboard/
 modules/storm_quicktt/
+modules/story/
 modules/storylink/
 modules/stream/
 modules/streamsend/
@@ -4973,7 +4944,9 @@ modules/syntaxhighlighter/
 modules/synth_products/
 modules/sys_en/
 modules/sysinfo/
+modules/syslog/
 modules/syslog_viewer/
+modules/system/
 modules/system_email/
 modules/system_table_cleaner/
 modules/system_theme/
@@ -5293,6 +5266,7 @@ modules/trace/
 modules/track/
 modules/track_host/
 modules/trackback/
+modules/tracker/
 modules/tracker2/
 modules/trackerlite/
 modules/trackfield/
@@ -5333,6 +5307,7 @@ modules/tree/
 modules/trees/
 modules/tribune/
 modules/trigeo/
+modules/trigger/
 modules/triggerunlock/
 modules/trip_currency/
 modules/trip_forum/
@@ -5641,6 +5616,7 @@ modules/upcfield/
 modules/upcoming/
 modules/upcoming_event/
 modules/upcomingorg/
+modules/update/
 modules/update_advanced/
 modules/update_api/
 modules/update_form_enhancement/
@@ -5690,6 +5666,7 @@ modules/urlproxy/
 modules/usability_suite/
 modules/uscongress/
 modules/used_modules/
+modules/user/
 modules/user_activity/
 modules/user_aggregator/
 modules/user_autorole/
@@ -5772,8 +5749,8 @@ modules/userone/
 modules/userpath/
 modules/userpic_minsize/
 modules/userplane-5.1/
-modules/userplanechat/
 modules/userplanechat-5.1/
+modules/userplanechat/
 modules/userplus/
 modules/userpoints/
 modules/userpoints_contrib/
@@ -6037,6 +6014,7 @@ modules/warning/
 modules/warnme/
 modules/watch/
 modules/watchbug/
+modules/watchdog/
 modules/watchdog_aggregator/
 modules/watchdog_feed/
 modules/watchdog_live/
@@ -6178,8 +6156,8 @@ modules/wurfl/
 modules/wwsgd/
 modules/wwwizard_modules/
 modules/wymeditor/
-modules/wysiwyg/
 modules/wysiwyg-geshi/
+modules/wysiwyg/
 modules/wysiwyg_asciimath/
 modules/wysiwyg_cleaner/
 modules/wysiwyg_codemirror/

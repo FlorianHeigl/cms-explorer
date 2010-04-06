@@ -21,10 +21,10 @@ templates/rhuk_milkyway/
 templates/rt_hivemind_j15/
 templates/rt_mediamogul_essentials_j15/
 templates/rt_nexus_j15/
+templates/siteground99/
 templates/siteground-j15-14/
 templates/siteground-j15-68/
 templates/siteground-j15-86/
-templates/siteground99/
 templates/system/
 templates/yoo_phoenix/
 templates/yoo_waybeyond/

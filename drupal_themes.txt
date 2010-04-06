@@ -1,16 +1,3 @@
-themes/bluemarine
-themes/chameleon
-themes/garland
-themes/goofy
-themes/jeroen
-themes/marvin
-themes/pushbutton
-themes/seven
-themes/slate
-themes/stark
-themes/trillian
-themes/unconed
-themes/yaroon
 themes/001%20Dev%20Skin/
 themes/001_dev_skin/
 themes/002_dev_skin/
@@ -40,8 +27,8 @@ themes/Internet_Broadcast/
 themes/Internet_Corporation/
 themes/July4/
 themes/Kyrgyzstan/
-themes/MyDrupal/
 themes/MyDrupal-Tidy/
+themes/MyDrupal/
 themes/MyDrupal_Impact/
 themes/MyDrupal_Universal/
 themes/MyTree/
@@ -202,6 +189,7 @@ themes/bluefun/
 themes/bluefx/
 themes/blueish/
 themes/bluelake/
+themes/bluemarine
 themes/bluemarine/
 themes/bluemarine_ets/
 themes/bluemarine_smarty/
@@ -235,6 +223,7 @@ themes/celadon/
 themes/celestial/
 themes/celju/
 themes/cgiirc/
+themes/chameleon
 themes/chameleon/
 themes/chamfer/
 themes/changeme/
@@ -248,8 +237,8 @@ themes/chocotheme/
 themes/chrono/
 themes/chrysalis/
 themes/civicspace/
-themes/clean/
 themes/clean-a/
+themes/clean/
 themes/cleanfolio/
 themes/cleanr/
 themes/cleanslate/
@@ -377,7 +366,9 @@ themes/fusiontheme/
 themes/gagarin/
 themes/garamond/
 themes/gardening/
+themes/garland
 themes/garland-smarty/
+themes/garland/
 themes/garlandrtl/
 themes/gateway/
 themes/gbif/
@@ -399,6 +390,7 @@ themes/golden_hour/
 themes/goldengray/
 themes/goldfish/
 themes/gommutheme/
+themes/goofy
 themes/goofy/
 themes/grass/
 themes/grassland/
@@ -461,6 +453,7 @@ themes/iui/
 themes/ivy/
 themes/iwebkit/
 themes/jaded/
+themes/jeroen
 themes/jeroen/
 themes/jesox_mmozine/
 themes/joker/
@@ -494,14 +487,15 @@ themes/litejazz/
 themes/lumen/
 themes/magazeen/
 themes/magwood/
-themes/manage/
 themes/manage-theme/
+themes/manage/
 themes/manji/
 themes/manollio_rtl/
 themes/manuscript/
 themes/marinelli/
 themes/marketplace/
 themes/marketstate/
+themes/marvin
 themes/marvin/
 themes/marvin_2k/
 themes/marvin_2k_phptemplate/
@@ -577,8 +571,8 @@ themes/olav/
 themes/omega/
 themes/oocss/
 themes/openpublish_theme/
-themes/orange/
 themes/orange-mint/
+themes/orange/
 themes/oranzh/
 themes/orchard/
 themes/osmobi-mobile/
@@ -621,6 +615,7 @@ themes/professional/
 themes/protocons/
 themes/purple_beauty/
 themes/purple_box/
+themes/pushbutton
 themes/pushbutton/
 themes/pushbutton_phptemplate/
 themes/quicksilver/
@@ -644,8 +639,8 @@ themes/riebel/
 themes/rootcandy/
 themes/roundness/
 themes/royal/
-themes/salamander/
 themes/salamander-6/
+themes/salamander/
 themes/salamanderskins/
 themes/sandbox-theme/
 themes/sandium/
@@ -657,10 +652,11 @@ themes/sapo/
 themes/scaccarium/
 themes/scratch/
 themes/scribbish/
-themes/scruffy/
 themes/scruffy-desk/
+themes/scruffy/
 themes/sea_breeze/
 themes/seanr_xhtml/
+themes/seven
 themes/seven/
 themes/shakennotstirred/
 themes/shallowgrunge/
@@ -691,6 +687,8 @@ themes/skymod/
 themes/skyroots/
 themes/slash/
 themes/slashin/
+themes/slate
+themes/slate/
 themes/slurpee/
 themes/smarty/
 themes/smoothBlue/
@@ -714,6 +712,7 @@ themes/spreadfirefox/
 themes/spring/
 themes/spring_bloom/
 themes/spring_theme/
+themes/stark
 themes/stark/
 themes/starkish/
 themes/stilton/
@@ -761,6 +760,8 @@ themes/touch/
 themes/tranquility/
 themes/travel/
 themes/treedesert/
+themes/trillian
+themes/trillian/
 themes/trip/
 themes/triumviratum/
 themes/turquoise/
@@ -773,6 +774,7 @@ themes/udtheme/
 themes/ufutbol/
 themes/ultimate960/
 themes/uncomplicated/
+themes/unconed
 themes/unconed/
 themes/untheme/
 themes/unthemes/
@@ -802,11 +804,12 @@ themes/wyo/
 themes/xsilver/
 themes/xtemplate/
 themes/xwebAeon4/
+themes/yaroon
 themes/yaroon/
 themes/yarooned/
 themes/yast/
-themes/yui/
 themes/yui-framework/
+themes/yui/
 themes/yui_grid/
 themes/zen/
 themes/zen_basic/

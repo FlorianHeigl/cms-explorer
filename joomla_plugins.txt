@@ -65,7 +65,6 @@ components/com_idoblog/
 components/com_intuit/
 components/com_intuitLocal/
 components/com_invite/
-components/com_j-projects/
 components/com_jabode/
 components/com_jbook/
 components/com_jbudgetsmagic/
@@ -84,6 +83,7 @@ components/com_joomlastats/
 components/com_joomlaxplorer/
 components/com_joomportfolio/
 components/com_joomunity/
+components/com_j-projects/
 components/com_jreservation/
 components/com_jshop/
 components/com_jsjobs/
@@ -135,8 +135,8 @@ components/com_seminar/
 components/com_seyret/
 components/com_shoutbox/
 components/com_siirler/
-components/com_simpleshop/
 components/com_simple_review/
+components/com_simpleshop/
 components/com_sobi2/
 components/com_soundset/
 components/com_sportfusion/
@@ -197,8 +197,8 @@ modules/mod_newsflash/
 modules/mod_onlineusers/
 modules/mod_onlineusers_pro/
 modules/mod_poll/
-modules/mod_productscroller/
 modules/mod_product_categories/
+modules/mod_productscroller/
 modules/mod_random_image/
 modules/mod_related_items/
 modules/mod_rokslideshow/

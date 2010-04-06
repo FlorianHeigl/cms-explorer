@@ -256,7 +256,7 @@ sub parse_csv {
 
 #############################################################
 # check target connectivity
-sub check_conn {
+sub check_host {
     my ($base) = @_;
     my %result;
     $request{'whisker'}->{'uri'}    = $base;
@@ -348,7 +348,7 @@ sub dump_var {
 #############################################################
 # Get new files from svn/cvs where possible
 sub update {
-    my %files;
+    my (%files, %saw);
     $files{'wp_plugins.txt'}     = "http://svn.wp-plugins.org/";
     $files{'wp_themes.txt'}      = "http://themes.svn.wordpress.org/";
     $files{'drupal_themes.txt'}  = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
@@ -405,28 +405,46 @@ sub update {
                       );
             }
         elsif ($file eq 'wp_plugins.txt') {
+
+            # default plugin
             $pre   = "wp-content/plugins/";
             @items = ('wp-content/plugins/hello.php');
             }
         elsif ($file eq 'wp_themes.txt') {
+
+            # default theme
             $pre = "wp-content/themes/";
             @items = ('wp-content/themes/classic/', 'themes/default');
             }
 
+        # parse source tree data
         foreach my $line (split(/\n/, $data)) {
             if ($line !~ /(<li><a|View directory)/) { next; }
             my @d = split(/\"/, $line);
             if (($file =~ /^wp_/) && ($d[1] ne '')) { push(@items, $pre . $d[1]); }
             if (($file =~ /^drupal_/) && ($d[3] ne '')) {
                 $d[3] =~ s/viewvc\/drupal\/(contributions|drupal)\/(modules|themes)\///;
+                if ($d[3] !~ /\/$/) { $d[3] .= "/"; }
                 push(@items, $pre . $d[3]);
                 }
             }
+
+        # merge old file & new (to keep any removed from source tree)
+        @items = (@items, get_listfile($file));
+
+        # make unique list
+        undef %saw;
+        @items = grep(!$saw{$_}++, @items);
+
+        # sort just so we have a better status guess during runs with -v
+        @items = sort(@items);
+
+        # save file if we have more than 0 items
         if ($#items > 1) {
             open(OUT, ">$file") || die print STDERR "** ERROR: failed to open '$file': $! **\n";
             print OUT join("\n", @items);
             close(OUT);
-            print "$file updated with " . $#items . " entries\n";
+            print "$file updated with " . $#items . " merged entries\n";
             }
         }
     exit;
@@ -450,12 +468,11 @@ sub parse_options {
                "verbosity=i"  => \$OPTIONS{'verbosity'}
                ) || die usage("^^^^^^^^^^^^^^  ERROR ^^^^^^^^^^^^^^\n");
 
-    if ($OPTIONS{'help'}) { usage(); }
-
+    if ($OPTIONS{'help'})   { usage(); }
     if ($OPTIONS{'update'}) { update(); }
-
     if ($OPTIONS{'url'} eq '') { usage("\nERROR: Missing -url\n"); }
     if ($OPTIONS{'url'} !~ /\/$/) { $OPTIONS{'url'} .= "/"; }
+    $OPTIONS{'type'} = lc($OPTIONS{'type'});
 
     if ($OPTIONS{'proxy_host'} ne '') {
         if ($OPTIONS{'proxy_host'} !~ /^https?\:\/\//) {
@@ -474,8 +491,6 @@ sub parse_options {
         $OPTIONS{'bsproxy_host'} = $hostdata[2];
         $OPTIONS{'bsproxy_port'} = $hostdata[3] || 80;
         }
-
-    $OPTIONS{'type'} = lc($OPTIONS{'type'});
 
     # split host / path
     ($OPTIONS{'uri'}, $OPTIONS{'protocol'}, $OPTIONS{'host'}) = LW2::uri_split($OPTIONS{'url'});
@@ -504,7 +519,7 @@ sub parse_options {
 
     # do this here 'cause we must set type if blank...
     # and need runprefix set up for next step
-    check_conn($OPTIONS{'uri'});
+    check_host($OPTIONS{'uri'});
 
     if (($OPTIONS{'type'} eq 'wp') || ($OPTIONS{'type'} eq 'wordpress')) {
         $OPTIONS{'runprefix'} = "wp_";
