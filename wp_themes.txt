@@ -810,6 +810,7 @@ wp-content/themes/coolblue/
 wp-content/themes/coolhomes/
 wp-content/themes/coolparis/
 wp-content/themes/coolsea/
+wp-content/themes/coolwater/
 wp-content/themes/copernicus/
 wp-content/themes/copernicus-blue/
 wp-content/themes/coralis/
@@ -1193,6 +1194,7 @@ wp-content/themes/financial-planner/
 wp-content/themes/financials-mortgage-and-credit-cards/
 wp-content/themes/finiline/
 wp-content/themes/finojaho/
+wp-content/themes/fionn/
 wp-content/themes/fireandice/
 wp-content/themes/firestarter/
 wp-content/themes/fishbook/
@@ -1528,6 +1530,7 @@ wp-content/themes/i-heart-pc-light/
 wp-content/themes/i-still-do/
 wp-content/themes/i20-theme-series-blue/
 wp-content/themes/iammobiled-blue-heart/
+wp-content/themes/iammobiled-mobile-theme-blue-heart/
 wp-content/themes/ibbblog/
 wp-content/themes/ibee-hosting-blog-12/
 wp-content/themes/iblog/
@@ -2644,6 +2647,7 @@ wp-content/themes/sade/
 wp-content/themes/saffron/
 wp-content/themes/safitech/
 wp-content/themes/sahina-tech-lite/
+wp-content/themes/sail-away/
 wp-content/themes/sakura/
 wp-content/themes/sales-page-theme/
 wp-content/themes/sample-theme/
@@ -3234,7 +3238,6 @@ wp-content/themes/tweetmeblue/
 wp-content/themes/tweetpress/
 wp-content/themes/tweetsheep/
 wp-content/themes/twelve/
-wp-content/themes/twenty-ten/
 wp-content/themes/twilight/
 wp-content/themes/twilight-crown/
 wp-content/themes/twitter-maniac/

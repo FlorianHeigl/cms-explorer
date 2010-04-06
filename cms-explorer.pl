@@ -61,7 +61,7 @@ my (@theme_finds, @plugin_finds) = ();
 # Load & brute force themes
 if ($OPTIONS{'checkthemes'}) {
     print "Testing themes from $OPTIONS{'themefile'}...\n";
-    my @themes = get_file($OPTIONS{'themefile'});
+    my @themes = get_listfile($OPTIONS{'themefile'});
     my @it;
     brute($OPTIONS{'uri'}, \@themes, \@it, "theme");
     foreach my $find (@it) {
@@ -73,7 +73,7 @@ if ($OPTIONS{'checkthemes'}) {
 # Load & brute force plugins
 if ($OPTIONS{'checkplugins'}) {
     print "Testing plugins...\n";
-    my @plugins = get_file($OPTIONS{'pluginfile'});
+    my @plugins = get_listfile($OPTIONS{'pluginfile'});
     my @ip;
     brute($OPTIONS{'uri'}, \@plugins, \@ip, "plugin");
     foreach my $find (@ip) {
@@ -122,12 +122,9 @@ if ($OPTIONS{'explore'}) {
 
     my %result;
     my $ctr = 0;
-print "expq: " . keys(%EXPQ) . "\n";
     foreach my $file (keys %EXPQ) {
         $ctr++;
-print "file:$file\n";
         if ($OPTIONS{'bsproxy_host'} ne '') {
-print "host:$OPTIONS{'bsproxy_host'}\n";
             $request_bootstrap{'whisker'}->{'uri'} = $file;
             LW2::http_fixup_request(\%request_bootstrap);
             LW2::http_do_request(\%request_bootstrap, \%result);
@@ -188,8 +185,7 @@ foreach my $find (@plugin_finds) {
         print osvdb_search($find, $OPTIONS{'type'});
         }
     elsif ($OPTIONS{'type'} eq 'drupal') {
-        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/" . $find
-          . "\n";
+        print "\tCVS\t\t\thttp://drupalcode.org/viewvc/drupal/contributions/" . $find . "\n";
         print osvdb_search($find, $OPTIONS{'type'});
         }
     }
@@ -259,6 +255,48 @@ sub parse_csv {
     }
 
 #############################################################
+# check target connectivity
+sub check_conn {
+    my ($base) = @_;
+    my %result;
+    $request{'whisker'}->{'uri'}    = $base;
+    $request{'whisker'}->{'method'} = 'GET';
+    LW2::http_fixup_request(\%request);
+    LW2::http_do_request(\%request, \%result);
+    if ($result{'whisker'}->{'error'} ne '') {
+        print STDERR "ERROR: Connection to host: $result{'whisker'}->{'error'}\n";
+        exit;
+        }
+    elsif ($result{'whisker'}->{'code'} =~ /^3\d\d$/) {
+        print STDERR "ERROR: Host $result{'whisker'}->{'code'} redirects to $result{'Location'}\n";
+        print STDERR "       Please use this host if that's what you really want.\n";
+        exit;
+        }
+    if ($OPTIONS{'verbosity'} > 0) {
+        print "Connectivity test result: $result{'whisker'}->{'code'}\n";
+        }
+
+    # can ident from base req?
+    if ($OPTIONS{'type'} eq '') {
+        if ($result{'whisker'}->{'data'} =~
+            /\<meta\sname\=\"generator\"\scontent\=\"(?:Joomla|Mambo)/i) {
+            $OPTIONS{'type'} = "joomla";
+            }
+        elsif (
+              ($result{'whisker'}->{'data'} =~ /\<meta\sname\=\"generator\"\scontent\=\"WordPress/i)
+              || ($result{'whisker'}->{'data'} =~ /\"\/wp\-login\.php\"/)) {
+            $OPTIONS{'type'} = "wp";
+            }
+        elsif (   ($result{'whisker'}->{'data'} =~ /\"\/node\/(?:node\.css|[0-9])/)
+               || ($result{'whisker'}->{'data'} =~ /\/sites\/all\//)) {
+            $OPTIONS{'type'} = "drupal";
+            }
+        }
+    $request{'whisker'}->{'method'} = 'HEAD';
+    return;
+    }
+
+#############################################################
 # Brute force directory names
 sub brute {
     my ($base, $tests, $out, $type) = @_;
@@ -305,7 +343,7 @@ sub dump_var {
     $display =~ s/^\$/'$msg'/;
     print "$display\n";
     return;
-}
+    }
 
 #############################################################
 # Get new files from svn/cvs where possible
@@ -439,34 +477,6 @@ sub parse_options {
 
     $OPTIONS{'type'} = lc($OPTIONS{'type'});
 
-    if (($OPTIONS{'type'} eq 'wp') || ($OPTIONS{'type'} eq 'wordpress')) {
-        $OPTIONS{'runprefix'} = "wp_";
-        $OPTIONS{'type'}      = "wp";
-        }
-    elsif ($OPTIONS{'type'} eq 'drupal') {
-        $OPTIONS{'runprefix'} = "drupal_";
-        }
-    elsif (($OPTIONS{'type'} eq 'joomla') || ($OPTIONS{'type'} eq 'mambo')) {
-        $OPTIONS{'runprefix'} = "joomla_";
-        }
-    else {
-        usage("\nERROR: Must specify -type\n");
-        }
-
-    if (!$OPTIONS{'checkthemes'} && !$OPTIONS{'checkplugins'}) {
-        $OPTIONS{'checkplugins'} = 1;
-        $OPTIONS{'checkthemes'}  = 1;
-        }
-    if (!defined($OPTIONS{'themefile'}) || $OPTIONS{'themefile'} eq '') {
-        $OPTIONS{'themefile'} = $OPTIONS{'runprefix'} . "themes.txt";
-        }
-    if (!defined($OPTIONS{'pluginfile'}) || $OPTIONS{'pluginfile'} eq '') {
-        $OPTIONS{'pluginfile'} = $OPTIONS{'runprefix'} . "plugins.txt";
-        }
-    if ($OPTIONS{'verbosity'} =~ /[^1-3]/ || $OPTIONS{'verbosity'} eq '') {
-        $OPTIONS{'verbosity'} = 0;
-        }
-
     # split host / path
     ($OPTIONS{'uri'}, $OPTIONS{'protocol'}, $OPTIONS{'host'}) = LW2::uri_split($OPTIONS{'url'});
     if ($OPTIONS{'uri'} !~ /\/$/) { $OPTIONS{'uri'} .= "/"; }
@@ -486,6 +496,40 @@ sub parse_options {
         $request_bootstrap{'whisker'}->{'proxy_host'} = $OPTIONS{'bsproxy_host'};
         $request_bootstrap{'whisker'}->{'proxy_port'} = $OPTIONS{'bsproxy_port'};
         }
+
+    if (!$OPTIONS{'checkthemes'} && !$OPTIONS{'checkplugins'}) {
+        $OPTIONS{'checkplugins'} = 1;
+        $OPTIONS{'checkthemes'}  = 1;
+        }
+
+    # do this here 'cause we must set type if blank...
+    # and need runprefix set up for next step
+    check_conn($OPTIONS{'uri'});
+
+    if (($OPTIONS{'type'} eq 'wp') || ($OPTIONS{'type'} eq 'wordpress')) {
+        $OPTIONS{'runprefix'} = "wp_";
+        $OPTIONS{'type'}      = "wp";
+        }
+    elsif ($OPTIONS{'type'} eq 'drupal') {
+        $OPTIONS{'runprefix'} = "drupal_";
+        }
+    elsif (($OPTIONS{'type'} eq 'joomla') || ($OPTIONS{'type'} eq 'mambo')) {
+        $OPTIONS{'runprefix'} = "joomla_";
+        }
+    else {
+        usage("\nERROR: Type could not be determined--please specify with -type\n");
+        }
+
+    if (!defined($OPTIONS{'themefile'}) || $OPTIONS{'themefile'} eq '') {
+        $OPTIONS{'themefile'} = $OPTIONS{'runprefix'} . "themes.txt";
+        }
+    if (!defined($OPTIONS{'pluginfile'}) || $OPTIONS{'pluginfile'} eq '') {
+        $OPTIONS{'pluginfile'} = $OPTIONS{'runprefix'} . "plugins.txt";
+        }
+    if ($OPTIONS{'verbosity'} =~ /[^1-3]/ || $OPTIONS{'verbosity'} eq '') {
+        $OPTIONS{'verbosity'} = 0;
+        }
+
     }
 
 #############################################################
@@ -556,14 +600,16 @@ sub get_svn_files {
 
 #############################################################
 # Open a file and return contents
-sub get_file {
+sub get_listfile {
     my $file = $_[0] || return;
     my @items;
     open(IN, "<$file") || die print STDERR "** ERROR: failed to open '$file': $! **\n";
     while (<IN>) {
-        chomp;
-        s/^\///;
-        push(@items, $_);
+        my $l = $_;
+        chomp($l);
+        $l =~ s/^\///;
+        if ($l !~ /\/$/) { $l .= "/"; }
+        push(@items, $l);
         }
     close(IN);
     return @items;
@@ -584,7 +630,7 @@ sub usage {
     print "\t-proxy+ 	Proxy for requests (fmt: host:port)\n";
     print "\t-themes		Look for themes (default: on)\n";
     print "\t-themefile+	Theme file list (default: themes.txt)\n";
-    print "\t-type+*		CMS type: Drupal, Wordpress, Joomla, Mambo\n";
+    print "\t-type+		Force CMS type: Drupal, Wordpress, Joomla, Mambo\n";
     print "\t-update 	Update lists from Wordpress/Drupal (over-writes text files)\n";
     print "\t-url+*		Full url to app's base directory\n";
     print "\t-verbosity+ 	1-3\n";

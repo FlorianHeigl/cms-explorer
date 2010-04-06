@@ -662,6 +662,7 @@ modules/breadcrumb/
 modules/breakout/
 modules/bricolage/
 modules/bridgewebcal/
+modules/briefcase/
 modules/brilliant_gallery/
 modules/broccoli/
 modules/brochure_core/
@@ -2142,6 +2143,7 @@ modules/game_calendar/
 modules/game_character/
 modules/game_clock/
 modules/game_message/
+modules/game_object/
 modules/game_quest/
 modules/game_queue/
 modules/gamertags/

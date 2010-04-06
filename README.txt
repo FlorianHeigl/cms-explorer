@@ -85,7 +85,7 @@ Options
 			http://host:ip/, default port 80)
 	-themes		Look for themes (default: on)
 	-themefile+	Theme file list (default: themes.txt)
-	-type+*		CMS type: Drupal, Wordpress, Joomla, Mambo
+	-type+		Force CMS type: Drupal, Wordpress, Joomla, Mambo
 	-update 	Update lists from Wordpress/Drupal (over-writes 
 			text files)
 	-url+*		Full url to app's base directory
@@ -94,9 +94,9 @@ Options
 #############################################################
 Examples
 - Test for Wordpress plugins/themes on example.com, low verbosity and 
-  explore using the bootstrap proxy 'localhost' on port 8080
+  explore using the bootstrap proxy 'localhost' on port 8080 and auto-guess type
 	./cms-explorer.pl -url http://example.com/ -v 1 -bsproxy \ 
-		http://localhost:8080/ -explore -type wordpress
+		http://localhost:8080/ -explore 
 
 - Test for Wordpress themes on example.com using themelist.txt, full
   verbosity and explore using the bootstrap proxy 'localhost' on port 80
