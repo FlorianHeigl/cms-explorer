@@ -2667,7 +2667,7 @@ $code .= "\$l->[$i]=\$r->[$i]; \$r->[$i]=\$r2[$i];\n";
 }
 $code .= '}}}';
 eval "$code";
-print "DEBUG: $code\n\n";
+#print "DEBUG: $code\n\n";
 $generated++;
 }
 }    ##### end of DES container ################################################

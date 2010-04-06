@@ -197,6 +197,7 @@ foreach my $find (@plugin_finds) {
 exit;
 
 #############################################################
+# load OSVDB.org API key from file
 sub osvdb_load_apikey {
     if ((-e "osvdb.key") && (-r "osvdb.key")) {
         open(IN, "<osvdb.key") || die print "ERROR: Unable to open osvdb.key: $!\n";
@@ -209,6 +210,7 @@ sub osvdb_load_apikey {
     }
 
 #############################################################
+# Search OSVDB.org through the API
 sub osvdb_search {
     if (!$OPTIONS{'osvdb'}) { return; }
     if ($osvdb_api_key eq '') { return; }
@@ -243,6 +245,7 @@ sub osvdb_search {
     }
 
 #############################################################
+# Turn a CSV string into an array
 sub parse_csv {
     my $text = $_[0] || return;
     my @new = ();
@@ -256,6 +259,7 @@ sub parse_csv {
     }
 
 #############################################################
+# Brute force directory names
 sub brute {
     my ($base, $tests, $out, $type) = @_;
     my (@finds, %result);
@@ -285,28 +289,26 @@ sub brute {
             # and route through bootstrap proxy, if desired
             if ($OPTIONS{'bsproxy_host'} ne '') {
                 $request_bootstrap{'whisker'}->{'uri'} = $base . $f;
-#print "added w uri: $request_bootstrap{'whisker'}->{'uri'}\n";
                 LW2::http_fixup_request(\%request_bootstrap);
                 LW2::http_do_request(\%request_bootstrap, \%result);
-#dump_var("request",\%request_bootstrap);
-#dump_var("result",\%result);
                 }
             }
         } @$tests;
     }
 
+#############################################################
+# For debugging purposes (generally not used). Swiped from Nikto
 sub dump_var {
     my $msg     = $_[0];
     my %hash_in = %{ $_[1] };
-
     my $display = LW2::dump('', \%hash_in);
     $display =~ s/^\$/'$msg'/;
     print "$display\n";
     return;
 }
 
-
 #############################################################
+# Get new files from svn/cvs where possible
 sub update {
     my %files;
     $files{'wp_plugins.txt'}     = "http://svn.wp-plugins.org/";
@@ -393,6 +395,7 @@ sub update {
     }
 
 #############################################################
+# Read command line options
 sub parse_options {
     GetOptions("url=s"        => \$OPTIONS{'url'},
                "pluginfile=s" => \$OPTIONS{'pluginfile'},
@@ -486,6 +489,7 @@ sub parse_options {
     }
 
 #############################################################
+# Get list of files to explore from a CVS web interface
 sub get_cvs_files {
     my $baseurl = $_[0] || return;
     my $url = $_[1];
@@ -516,6 +520,7 @@ sub get_cvs_files {
     }
 
 #############################################################
+# Get list of files to explore from an SVN web interface
 sub get_svn_files {
     my $baseurl = $_[0] || return;
     my $wpurl = $_[1];
@@ -550,6 +555,7 @@ sub get_svn_files {
     }
 
 #############################################################
+# Open a file and return contents
 sub get_file {
     my $file = $_[0] || return;
     my @items;
@@ -564,6 +570,7 @@ sub get_file {
     }
 
 #############################################################
+# Print usage
 sub usage {
     print "$_[0]\n";
     print "$0 -url url -type type [options]\n";
