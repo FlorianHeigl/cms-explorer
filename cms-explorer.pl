@@ -284,7 +284,9 @@ sub check_host {
             }
         elsif (
               ($result{'whisker'}->{'data'} =~ /\<meta\sname\=\"generator\"\scontent\=\"WordPress/i)
-              || ($result{'whisker'}->{'data'} =~ /\"\/wp\-login\.php\"/)) {
+              || ($result{'whisker'}->{'data'} =~ /(?:$OPTIONS{'url'}|\")\/wp\-login\.php\"/)
+              || ($result{'whisker'}->{'data'} =~ /(?:$OPTIONS{'url'}|\")\/wp\-content\//)
+		) {
             $OPTIONS{'type'} = "wp";
             }
         elsif (   ($result{'whisker'}->{'data'} =~ /\"\/node\/(?:node\.css|[0-9])/)
