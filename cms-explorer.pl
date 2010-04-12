@@ -33,8 +33,9 @@ use Getopt::Long;
 
 # Set defaults
 use vars qw/%OPTIONS %request %request_bootstrap @plugins @themes %URLS %EXPQ/;
-$URLS{'wp_svn_plugin'}       = "http://svn.wp-plugins.org/";
-$URLS{'wp_svn_theme'}        = "http://themes.svn.wordpress.org/";
+$URLS{'wp_svn_plugins'}       = "http://svn.wp-plugins.org/";
+$URLS{'wp_svn_themes'}        = "http://themes.svn.wordpress.org/";
+$URLS{'typo3_svn_plugins'}   = "https://svn.typo3.org/TYPO3v4/Extensions/";
 $URLS{'drupal_cvs_modules'}  = "http://drupalcode.org/viewvc/drupal/contributions/modules/";
 $URLS{'drupal_cvs_modules2'} = "http://drupalcode.org/viewvc/drupal/drupal/modules/";
 $URLS{'drupal_cvs_themes'}   = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
@@ -90,9 +91,9 @@ if ($OPTIONS{'explore'}) {
     print "Looking for theme files...\n" unless !$OPTIONS{'checkthemes'};
     foreach my $find (@theme_finds) {
         my $f = $find;
-        $f =~ s/^themes\///;
+        $f =~ s/^(?:wp-content\/)?themes\///;
         if ($OPTIONS{'type'} eq 'wp') {
-            get_svn_files($URLS{'wp_svn_theme'} . $f, $OPTIONS{'uri'} . "themes/");
+            get_svn_files($URLS{'wp_svn_themes'} . $f, $OPTIONS{'uri'} . "wp-content/themes");
             }
         elsif ($OPTIONS{'type'} eq 'drupal') {
             get_cvs_files($URLS{'drupal_cvs_themes'} . $f, $OPTIONS{'uri'} . "themes/");
@@ -102,9 +103,9 @@ if ($OPTIONS{'explore'}) {
     print "Looking for plugin/module files...\n" unless !$OPTIONS{'checkplugins'};
     foreach my $find (@plugin_finds) {
         my $f = $find;
-        $f =~ s/^(?:plugins|modules)\///;
+        $f =~ s/^(?:wp\-content\/plugins|modules)\///;
         if ($OPTIONS{'type'} eq 'wp') {
-            get_svn_files($URLS{'wp_svn_plugin'} . $f . "/trunk/", $OPTIONS{'uri'} . "plugins");
+            get_svn_files($URLS{'wp_svn_plugins'} . $f . "/trunk/", $OPTIONS{'uri'} . "wp-content/plugins");
             }
         elsif ($OPTIONS{'type'} eq 'drupal') {
             get_cvs_files($URLS{'drupal_cvs_modules'} . $f, $OPTIONS{'uri'} . "modules");
@@ -355,6 +356,7 @@ sub update {
     $files{'wp_themes.txt'}      = "http://themes.svn.wordpress.org/";
     $files{'drupal_themes.txt'}  = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
     $files{'drupal_plugins.txt'} = "http://drupalcode.org/viewvc/drupal/contributions/modules/";
+    $files{'typo3_plugins.txt'}  = "https://svn.typo3.org/TYPO3v4/Extensions/";
 
     foreach my $file (keys %files) {
         my ($code, $data) = LW2::get_page($files{$file});
@@ -418,6 +420,9 @@ sub update {
             $pre = "wp-content/themes/";
             @items = ('wp-content/themes/classic/', 'themes/default');
             }
+	elsif ($file eq 'typo3_plugins.txt') { 
+		$pre="typo3conf/ext/";
+		}
 
         # parse source tree data
         foreach my $line (split(/\n/, $data)) {
@@ -592,15 +597,15 @@ sub get_svn_files {
         next if $d[1] eq './';
         next if $d[1] eq '../';
         my $dir = $baseurl;
-        if ($dir =~ /$URLS{'wp_svn_theme'}/) {
-            $dir =~ s/$URLS{'wp_svn_theme'}//;
+        if ($dir =~ /$URLS{'wp_svn_themes'}/) {
+            $dir =~ s/$URLS{'wp_svn_themes'}//;
             my @parts = split(/\//, $dir);
             undef($parts[1]);
             $dir = join("/", @parts);
             $dir =~ s/\/\//\//g;
             }
-        if ($dir =~ /$URLS{'wp_svn_plugin'}/) {
-            $dir =~ s/$URLS{'wp_svn_plugin'}//;
+        if ($dir =~ /$URLS{'wp_svn_plugins'}/) {
+            $dir =~ s/$URLS{'wp_svn_plugins'}//;
             $dir =~ s/\/trunk\///;
             }
 
@@ -608,8 +613,8 @@ sub get_svn_files {
             get_svn_files($baseurl . $d[1], $wpurl);
             }
         else {
-            if ($d[1] !~ /^\//) { $d[1] = "/$d[1]"; }
-            if ($dir !~ /^\//) { $dir = "/$dir"; }
+            if (($dir !~ /^\//) && ($wpurl !~ /\/$/)) { $dir = "/$dir"; }
+            if (($d[1] !~ /^\//) && ($dir !~ /\/$/))  { $d[1] = "/$d[1]"; }
             $EXPQ{ $wpurl . $dir . $d[1] } = 0;
             }
         }
