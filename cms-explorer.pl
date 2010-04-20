@@ -35,7 +35,7 @@ use Getopt::Long;
 use vars qw/%OPTIONS %request %request_bootstrap @plugins @themes %URLS %EXPQ/;
 $URLS{'wp_svn_plugins'}       = "http://svn.wp-plugins.org/";
 $URLS{'wp_svn_themes'}        = "http://themes.svn.wordpress.org/";
-$URLS{'typo3_svn_plugins'}   = "https://svn.typo3.org/TYPO3v4/Extensions/";
+#$URLS{'typo3_svn_plugins'}   = "https://svn.typo3.org/TYPO3v4/Extensions/";
 $URLS{'drupal_cvs_modules'}  = "http://drupalcode.org/viewvc/drupal/contributions/modules/";
 $URLS{'drupal_cvs_modules2'} = "http://drupalcode.org/viewvc/drupal/drupal/modules/";
 $URLS{'drupal_cvs_themes'}   = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
@@ -356,7 +356,7 @@ sub update {
     $files{'wp_themes.txt'}      = "http://themes.svn.wordpress.org/";
     $files{'drupal_themes.txt'}  = "http://drupalcode.org/viewvc/drupal/contributions/themes/";
     $files{'drupal_plugins.txt'} = "http://drupalcode.org/viewvc/drupal/contributions/modules/";
-    $files{'typo3_plugins.txt'}  = "https://svn.typo3.org/TYPO3v4/Extensions/";
+    #$files{'typo3_plugins.txt'}  = "https://svn.typo3.org/TYPO3v4/Extensions/";
 
     foreach my $file (keys %files) {
         my ($code, $data) = LW2::get_page($files{$file});
