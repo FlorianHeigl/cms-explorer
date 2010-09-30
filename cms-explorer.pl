@@ -321,8 +321,7 @@ sub brute {
             print "$ctr/$total:\t$result{'whisker'}->{'code'}\t$base$f\n";
             }
         $ctr++;
-        #if ($result{'whisker'}->{'code'} =~ /(?:403|[52]\d\d|2\d\d)/) {
-        if ($result{'whisker'}->{'content'} =~ /Nothing found for/) {
+        if ($result{'whisker'}->{'code'} =~ /(?:403|[52]\d\d|2\d\d)/) {
             push(@{$out}, $f);
             if ($OPTIONS{'verbosity'} =~ /[1-3]/) {
                 print "Installed:\t$f\n";
